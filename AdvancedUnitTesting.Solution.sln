@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUT.Entities", "00_Solution
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUT.FinancialCalculator", "00_SolutionUnderTest\SUT.FinancialCalculator\SUT.FinancialCalculator.csproj", "{C9AF8F52-54C2-45EA-83AE-9AA0ADDA44C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUT.UI", "SUT.UI\SUT.UI.csproj", "{0E3A61C4-E647-4BCC-87FA-334FE8BC87C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{C9AF8F52-54C2-45EA-83AE-9AA0ADDA44C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9AF8F52-54C2-45EA-83AE-9AA0ADDA44C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9AF8F52-54C2-45EA-83AE-9AA0ADDA44C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3A61C4-E647-4BCC-87FA-334FE8BC87C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3A61C4-E647-4BCC-87FA-334FE8BC87C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3A61C4-E647-4BCC-87FA-334FE8BC87C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3A61C4-E647-4BCC-87FA-334FE8BC87C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{325F4A84-63AB-4F85-B43D-FDE9D0C445AD} = {E5E15556-BABE-41DB-936D-8181D92A9832}
 		{3C851ACD-02D3-4E1C-B2AA-CA3598CAC036} = {86750702-3AEB-4BA2-B7F2-16A9A9E5CF4A}
 		{C9AF8F52-54C2-45EA-83AE-9AA0ADDA44C3} = {86750702-3AEB-4BA2-B7F2-16A9A9E5CF4A}
+		{0E3A61C4-E647-4BCC-87FA-334FE8BC87C9} = {86750702-3AEB-4BA2-B7F2-16A9A9E5CF4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32EFF621-CF46-48DC-A7DF-65B9F2F6951D}
