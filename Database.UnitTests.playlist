@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="Tests.DataAccess.UnitTests.employeeRepositoryTests.TestGetAllEmployeesCount_ShouldRetunsTheTotalNumberOfEmployeesInTheDatabase" /><Add Test="Tests.DataAccess.UnitTests.dbTests.TestContextCreation_MakesSureDatabaseConnectivityIsSuccessful" /></Playlist>

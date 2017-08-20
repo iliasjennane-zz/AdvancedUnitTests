@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Table] (
+﻿CREATE TABLE [dbo].[Employees] (
     [Id]                   INT           IDENTITY (1, 1) NOT NULL,
     [Name]                 VARCHAR (MAX) NOT NULL,
     [Salary]               FLOAT (53)    NOT NULL,
