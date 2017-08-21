@@ -31,6 +31,11 @@ namespace SUT.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Employee employee = await db.Employees.FindAsync(id);
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+
             IBonusCalculator bonusCalculator;
             if (DateTime.Now >= DateTime.Parse("07/01/2017"))
             {
@@ -40,12 +45,12 @@ namespace SUT.UI.Controllers
             {
                 bonusCalculator = new FY17BonusCalculator();
             }
-             
             ViewBag.BonusAmount = bonusCalculator.GetBonusPercentage(employee) * employee.Salary / 100;
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
+
+            var proxy = new BonusProjectorService.BonusProjectorClient();
+            ViewBag.NextYearProjectBonus = proxy.GetExpectedBonus(employee.Salary);
+
+            
             return View(employee);
         }
 

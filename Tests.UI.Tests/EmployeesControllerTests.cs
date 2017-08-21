@@ -6,6 +6,7 @@ using SUT.Entities;
 using System.Collections.Generic;
 using SUT.DataAccess;
 using System.Linq;
+using SUT.FinancialCalculator;
 
 namespace Tests.UI.Tests
 {
@@ -51,5 +52,34 @@ namespace Tests.UI.Tests
                 Assert.IsNotNull(employeeInserted);
             }
         }
+
+        [TestMethod]
+        [TestCategory("UI.Logic.UnitTests")]
+        public void TestDetail_ShouldShowCurrentAndProjectedBonusesForEmployeeMakingMoreThan100K()
+        {
+            //AAA
+            //Arrange
+            EmployeesController controllerUnderTest = new EmployeesController();
+            string employeeTestName = "Test Employee " + DateTime.Now.ToLongTimeString();
+            var employeeToUseForTest = new Employee { Name = employeeTestName, Salary = 200000, HireDate = DateTime.Now, PerformanceStarLevel = 1 };
+            using (db dbContext = new db())
+            {
+                dbContext.Employees.Add(employeeToUseForTest);
+                dbContext.SaveChanges();
+            }
+            var proxy = new BonusProjectorService.BonusProjectorClient();
+
+            var bonusCalculator = new FY18BonusCalculator();
+
+            //Act
+            var returnedResult = controllerUnderTest.Details(employeeToUseForTest.Id).Result;
+            Assert.AreEqual(returnedResult.GetType(), typeof(ViewResult));
+            var returnedView = returnedResult as ViewResult;
+
+            //Assert
+            Assert.AreEqual(returnedView.ViewBag.BonusAmount, bonusCalculator.GetBonusPercentage(employeeToUseForTest) * employeeToUseForTest.Salary / 100);
+            Assert.AreEqual(returnedView.ViewBag.NextYearProjectBonus, proxy.GetExpectedBonus(employeeToUseForTest.Salary));
+        }
+
     }
 }

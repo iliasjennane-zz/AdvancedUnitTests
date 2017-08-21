@@ -22,6 +22,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUT.FinancialCalculator", "00_SolutionUnderTest\SUT.FinancialCalculator\SUT.FinancialCalculator.csproj", "{C9AF8F52-54C2-45EA-83AE-9AA0ADDA44C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUT.UI", "SUT.UI\SUT.UI.csproj", "{0E3A61C4-E647-4BCC-87FA-334FE8BC87C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{240E9EEC-6803-4452-B730-EB9765973A84} = {240E9EEC-6803-4452-B730-EB9765973A84}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUT.DataAccess", "SUT.DataAccess\SUT.DataAccess.csproj", "{FEB1B033-5414-4C05-96DD-B72CE6F6F5E8}"
 EndProject
@@ -32,6 +35,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.FinancialCalculator.UnitTests", "Tests.FinancialCalculator.UnitTests\Tests.FinancialCalculator.UnitTests.csproj", "{1E9AB41B-CBCA-4373-ACA2-DB3346C014EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.UI.Tests", "Tests.UI.Tests\Tests.UI.Tests.csproj", "{13BC7797-AA89-420C-BB2C-61B89C3F487C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{240E9EEC-6803-4452-B730-EB9765973A84} = {240E9EEC-6803-4452-B730-EB9765973A84}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUT.SoapServices", "SUT.SoapServices\SUT.SoapServices.csproj", "{240E9EEC-6803-4452-B730-EB9765973A84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +81,10 @@ Global
 		{13BC7797-AA89-420C-BB2C-61B89C3F487C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13BC7797-AA89-420C-BB2C-61B89C3F487C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13BC7797-AA89-420C-BB2C-61B89C3F487C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{240E9EEC-6803-4452-B730-EB9765973A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{240E9EEC-6803-4452-B730-EB9765973A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{240E9EEC-6803-4452-B730-EB9765973A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{240E9EEC-6803-4452-B730-EB9765973A84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +100,7 @@ Global
 		{422F0B25-0EB8-49B6-BE6A-B7755101CE76} = {C83559B5-8AD2-4A49-A4D1-4B032A4E930A}
 		{1E9AB41B-CBCA-4373-ACA2-DB3346C014EF} = {C83559B5-8AD2-4A49-A4D1-4B032A4E930A}
 		{13BC7797-AA89-420C-BB2C-61B89C3F487C} = {C83559B5-8AD2-4A49-A4D1-4B032A4E930A}
+		{240E9EEC-6803-4452-B730-EB9765973A84} = {86750702-3AEB-4BA2-B7F2-16A9A9E5CF4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32EFF621-CF46-48DC-A7DF-65B9F2F6951D}

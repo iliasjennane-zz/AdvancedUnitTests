@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d9fce5ae-86e3-4956-9090-8b7fb74ca1ae" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1102/BonusProjector.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BonusProjector.disco" MetadataType="Disco" ID="5263edea-5dcc-46a7-bcb8-947e91b923b9" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?disco" />
+    <MetadataFile FileName="BonusProjector.wsdl" MetadataType="Wsdl" ID="74d08dad-f8cf-45d6-8a6b-7a5e8066cd60" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?wsdl" />
+    <MetadataFile FileName="BonusProjector.xsd" MetadataType="Schema" ID="b9cbb069-6dad-4dbe-bdd9-9f39ad6b2f23" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?xsd=xsd0" />
+    <MetadataFile FileName="BonusProjector1.xsd" MetadataType="Schema" ID="7de9cd8e-e339-4ff0-82d9-6bbe1187c196" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
