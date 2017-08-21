@@ -220,6 +220,10 @@
       <Project>{3c851acd-02d3-4e1c-b2aa-ca3598cac036}</Project>
       <Name>SUT.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\00_SolutionUnderTest\SUT.FinancialCalculator\SUT.FinancialCalculator.csproj">
+      <Project>{C9AF8F52-54C2-45EA-83AE-9AA0ADDA44C3}</Project>
+      <Name>SUT.FinancialCalculator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SUT.DataAccess\SUT.DataAccess.csproj">
       <Project>{feb1b033-5414-4c05-96dd-b72ce6f6f5e8}</Project>
       <Name>SUT.DataAccess</Name>

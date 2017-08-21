@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using SUT.DataAccess;
 using SUT.Entities;
+using SUT.FinancialCalculator;
 
 namespace SUT.UI.Controllers
 {
@@ -30,6 +31,17 @@ namespace SUT.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Employee employee = await db.Employees.FindAsync(id);
+            IBonusCalculator bonusCalculator;
+            if (DateTime.Now >= DateTime.Parse("07/01/2017"))
+            {
+                bonusCalculator = new FY18BonusCalculator();
+            }
+            else
+            {
+                bonusCalculator = new FY17BonusCalculator();
+            }
+             
+            ViewBag.BonusAmount = bonusCalculator.GetBonusPercentage(employee) * employee.Salary / 100;
             if (employee == null)
             {
                 return HttpNotFound();
