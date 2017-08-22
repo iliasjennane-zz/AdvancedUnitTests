@@ -20,6 +20,7 @@ namespace SUT.UI.Controllers
         private IUnitOfWork<db> uow;
         private IRepository<Employee> employeeRepository;
         private IBonusProjector bonusProjector;
+        public IBonusCalculator bonusCalculator { get; set; }
 
         public EmployeesController(IUnitOfWork<db> UnitOfWork, IBonusProjector BonusProjector)
         {
@@ -47,7 +48,6 @@ namespace SUT.UI.Controllers
                 return HttpNotFound();
             }
 
-            IBonusCalculator bonusCalculator;
             if (DateTime.Now >= DateTime.Parse("07/01/2017"))
             {
                 bonusCalculator = new FY18BonusCalculator();

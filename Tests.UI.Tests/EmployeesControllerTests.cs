@@ -14,6 +14,8 @@ using SUT.DataAccess.Mocks;
 using System.Threading.Tasks;
 using Tests.UI.Tests.Mocks;
 using SUT.UI.BonusProjectorService;
+using Microsoft.QualityTools.Testing.Fakes;
+using System.Fakes;
 
 namespace Tests.UI.Tests
 {
@@ -36,7 +38,7 @@ namespace Tests.UI.Tests
         {
             //AAA
             //Arrange
-            
+
             EmployeesController controllerUnderTest = new EmployeesController(mockUnitOfWork.Object, null);
             //Act
             var returnedResult = controllerUnderTest.Index().Result;
@@ -65,7 +67,7 @@ namespace Tests.UI.Tests
 
         [TestMethod]
         [TestCategory("UI.Logic.UnitTests")]
-        public void TestDetail_ShouldShowCurrentAndProjectedBonusesForEmployeeMakingMoreThan100K()
+        public void TestDetail_ShouldShowCurrentAndProjectedBonusesForEmployeeMakingMoreThan100K_FY18()
         {
             //AAA
             //Arrange
@@ -73,6 +75,10 @@ namespace Tests.UI.Tests
             string employeeTestName = "Test Employee " + DateTime.Now.ToLongTimeString();
             var employeeToUseForTest = mockUnitOfWork.Object.DbContext.Employees.Where(e => e.Salary >= 100000).FirstOrDefault();
             mockUnitOfWork.Object.DbContext.Employees.Add(employeeToUseForTest);
+            using (ShimsContext.Create())
+            {
+                ShimDateTime.NowGet = () => { return DateTime.Parse("07/02/2017"); };
+            }
             var bonusCalculator = new FY18BonusCalculator();
 
             //Act
@@ -81,8 +87,37 @@ namespace Tests.UI.Tests
             var returnedView = returnedResult as ViewResult;
 
             //Assert
+            Assert.AreEqual(typeof(FY18BonusCalculator), controllerUnderTest.bonusCalculator.GetType());
             Assert.AreEqual(returnedView.ViewBag.BonusAmount, bonusCalculator.GetBonusPercentage(employeeToUseForTest) * employeeToUseForTest.Salary / 100);
             Assert.AreEqual(returnedView.ViewBag.NextYearProjectBonus, mockBonusProjector.Object.GetExpectedBonus(employeeToUseForTest.Salary));
+        }
+
+        [TestMethod]
+        [TestCategory("UI.Logic.UnitTests")]
+        public void TestDetail_ShouldShowCurrentAndProjectedBonusesForEmployeeMakingMoreThan100K_FY17()
+        {
+            //AAA
+            //Arrange
+            EmployeesController controllerUnderTest = new EmployeesController(mockUnitOfWork.Object, mockBonusProjector.Object);
+            string employeeTestName = "Test Employee " + DateTime.Now.ToLongTimeString();
+            var employeeToUseForTest = mockUnitOfWork.Object.DbContext.Employees.Where(e => e.Salary >= 100000).FirstOrDefault();
+            mockUnitOfWork.Object.DbContext.Employees.Add(employeeToUseForTest);
+            using (ShimsContext.Create())
+            {
+                ShimDateTime.NowGet = () => { return DateTime.Parse("07/02/2016"); };
+
+                var bonusCalculator = new FY17BonusCalculator();
+
+                //Act
+                var returnedResult = controllerUnderTest.Details(employeeToUseForTest.Id).Result;
+                Assert.AreEqual(returnedResult.GetType(), typeof(ViewResult));
+                var returnedView = returnedResult as ViewResult;
+
+                //Assert
+                Assert.AreEqual(typeof(FY17BonusCalculator), controllerUnderTest.bonusCalculator.GetType());
+                Assert.AreEqual(returnedView.ViewBag.BonusAmount, bonusCalculator.GetBonusPercentage(employeeToUseForTest) * employeeToUseForTest.Salary / 100);
+                Assert.AreEqual(returnedView.ViewBag.NextYearProjectBonus, mockBonusProjector.Object.GetExpectedBonus(employeeToUseForTest.Salary));
+            }
         }
 
     }
