@@ -10,17 +10,28 @@ using System.Web.Mvc;
 using SUT.DataAccess;
 using SUT.Entities;
 using SUT.FinancialCalculator;
+using SUT.UI.BonusProjectorService;
 
 namespace SUT.UI.Controllers
 {
     public class EmployeesController : Controller
     {
-        private db db = new db();
+        //private db dbContext = new db();
+        private IUnitOfWork<db> uow;
+        private IRepository<Employee> employeeRepository;
+        private IBonusProjector bonusProjector;
+
+        public EmployeesController(IUnitOfWork<db> UnitOfWork, IBonusProjector BonusProjector)
+        {
+            uow = UnitOfWork;
+            bonusProjector = BonusProjector;
+            employeeRepository = new Repository<Employee>(uow.DbContext);
+        }
 
         // GET: Employees
         public async Task<ActionResult> Index()
         {
-            return View(await db.Employees.ToListAsync());
+            return View(employeeRepository.GetAll().ToList());
         }
 
         // GET: Employees/Details/5
@@ -30,7 +41,7 @@ namespace SUT.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = await db.Employees.FindAsync(id);
+            Employee employee = await employeeRepository.GetByIdAsync(id.Value);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -45,10 +56,9 @@ namespace SUT.UI.Controllers
             {
                 bonusCalculator = new FY17BonusCalculator();
             }
-            ViewBag.BonusAmount = bonusCalculator.GetBonusPercentage(employee) * employee.Salary / 100;
 
-            var proxy = new BonusProjectorService.BonusProjectorClient();
-            ViewBag.NextYearProjectBonus = proxy.GetExpectedBonus(employee.Salary);
+            ViewBag.BonusAmount = bonusCalculator.GetBonusPercentage(employee) * employee.Salary / 100;
+            ViewBag.NextYearProjectBonus = bonusProjector.GetExpectedBonus(employee.Salary);
 
             
             return View(employee);
@@ -69,8 +79,8 @@ namespace SUT.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employee);
-                await db.SaveChangesAsync();
+                employeeRepository.Add(employee);
+                await uow.SaveAsync();
                 return RedirectToAction("Index");
             }
 
@@ -84,7 +94,7 @@ namespace SUT.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = await db.Employees.FindAsync(id);
+            Employee employee = await employeeRepository.GetByIdAsync(id.Value);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -101,8 +111,8 @@ namespace SUT.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                employeeRepository.Edit(employee);
+                await uow.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View(employee);
@@ -115,7 +125,7 @@ namespace SUT.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = await db.Employees.FindAsync(id);
+            Employee employee = await employeeRepository.GetByIdAsync(id.Value);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -128,9 +138,9 @@ namespace SUT.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Employee employee = await db.Employees.FindAsync(id);
-            db.Employees.Remove(employee);
-            await db.SaveChangesAsync();
+            Employee employee = await employeeRepository.GetByIdAsync(id);
+            employeeRepository.Delete(employee);
+            await uow.SaveAsync();
             return RedirectToAction("Index");
         }
 
@@ -138,7 +148,7 @@ namespace SUT.UI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.DbContext.Dispose();
             }
             base.Dispose(disposing);
         }

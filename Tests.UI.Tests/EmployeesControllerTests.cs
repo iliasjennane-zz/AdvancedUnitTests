@@ -7,6 +7,13 @@ using System.Collections.Generic;
 using SUT.DataAccess;
 using System.Linq;
 using SUT.FinancialCalculator;
+using Moq;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using SUT.DataAccess.Mocks;
+using System.Threading.Tasks;
+using Tests.UI.Tests.Mocks;
+using SUT.UI.BonusProjectorService;
 
 namespace Tests.UI.Tests
 {
@@ -14,13 +21,23 @@ namespace Tests.UI.Tests
 
     public class EmployeesControllerTests
     {
+        private Mock<IUnitOfWork<db>> mockUnitOfWork;
+        private Mock<IBonusProjector> mockBonusProjector;
+        [TestInitialize]
+        public void Initialize()
+        {
+            mockUnitOfWork = MockUnitOfWorkGenerator.GetMockUnitOfWork();
+            mockBonusProjector = MockWebServiceClient.GetMockBonusProjectorService();
+        }
+
         [TestMethod]
         [TestCategory("UI.Logic.UnitTests")]
         public void TestIndex_ShouldReturnTheIndexViewWithAListOfEmployeesAsAModel()
         {
             //AAA
             //Arrange
-            EmployeesController controllerUnderTest = new EmployeesController();
+            
+            EmployeesController controllerUnderTest = new EmployeesController(mockUnitOfWork.Object, null);
             //Act
             var returnedResult = controllerUnderTest.Index().Result;
             //Assert
@@ -31,11 +48,11 @@ namespace Tests.UI.Tests
 
         [TestMethod]
         [TestCategory("UI.Logic.UnitTests")]
-        public void TestCreate_ShouldAddAnEmployeeToTheDatabase()
+        public void TestCreate_ShouldAddAnEmployeeToTheDatabaseAndGoBackToIndexView()
         {
             //AAA
             //Arrange
-            EmployeesController controllerUnderTest = new EmployeesController();
+            EmployeesController controllerUnderTest = new EmployeesController(mockUnitOfWork.Object, mockBonusProjector.Object);
             string employeeTestName = "Test Employee " + DateTime.Now.ToLongTimeString();
             var employeeToBeAdded = new Employee { Name = employeeTestName, Salary = 100000, HireDate = DateTime.Now, PerformanceStarLevel = 1 };
             //Act
@@ -44,13 +61,6 @@ namespace Tests.UI.Tests
             Assert.AreEqual(returnedResult.GetType(), typeof(RedirectToRouteResult));
             var returnedView = returnedResult as RedirectToRouteResult;
             Assert.AreEqual(returnedView.RouteValues["Action"], "Index");
-
-            //Need to verify that the employee has been Added.
-            using (db dbContext = new db())
-            {
-                var employeeInserted = dbContext.Employees.Where(e => e.Name == employeeTestName).FirstOrDefault();
-                Assert.IsNotNull(employeeInserted);
-            }
         }
 
         [TestMethod]
@@ -59,16 +69,10 @@ namespace Tests.UI.Tests
         {
             //AAA
             //Arrange
-            EmployeesController controllerUnderTest = new EmployeesController();
+            EmployeesController controllerUnderTest = new EmployeesController(mockUnitOfWork.Object, mockBonusProjector.Object);
             string employeeTestName = "Test Employee " + DateTime.Now.ToLongTimeString();
-            var employeeToUseForTest = new Employee { Name = employeeTestName, Salary = 200000, HireDate = DateTime.Now, PerformanceStarLevel = 1 };
-            using (db dbContext = new db())
-            {
-                dbContext.Employees.Add(employeeToUseForTest);
-                dbContext.SaveChanges();
-            }
-            var proxy = new BonusProjectorService.BonusProjectorClient();
-
+            var employeeToUseForTest = mockUnitOfWork.Object.DbContext.Employees.Where(e => e.Salary >= 100000).FirstOrDefault();
+            mockUnitOfWork.Object.DbContext.Employees.Add(employeeToUseForTest);
             var bonusCalculator = new FY18BonusCalculator();
 
             //Act
@@ -78,7 +82,7 @@ namespace Tests.UI.Tests
 
             //Assert
             Assert.AreEqual(returnedView.ViewBag.BonusAmount, bonusCalculator.GetBonusPercentage(employeeToUseForTest) * employeeToUseForTest.Salary / 100);
-            Assert.AreEqual(returnedView.ViewBag.NextYearProjectBonus, proxy.GetExpectedBonus(employeeToUseForTest.Salary));
+            Assert.AreEqual(returnedView.ViewBag.NextYearProjectBonus, mockBonusProjector.Object.GetExpectedBonus(employeeToUseForTest.Salary));
         }
 
     }

@@ -17,7 +17,7 @@ namespace Tests.FinancialCalculator.UnitTests
             //Arrange
             var employeeUnderTest = new Employee { Id = 1, Name = "Joe Doe", Salary = 110000, HireDate = DateTime.Parse("01/01/2015"), PerformanceStarLevel = 1 };
             var classUnderTest = new FY18BonusCalculator();
-            decimal expectedBonusPercentage = 0;
+            double expectedBonusPercentage = 0;
             //Act
             var returnedBonusPercentage = classUnderTest.GetBonusPercentage(employeeUnderTest);
             //Assert
@@ -33,7 +33,7 @@ namespace Tests.FinancialCalculator.UnitTests
             //Arrange
             var employeeUnderTest = new Employee { Id = 1, Name = "Joe Doe", Salary = 110000, HireDate = DateTime.Parse("01/01/2015"), PerformanceStarLevel = 2 };
             var classUnderTest = new FY18BonusCalculator();
-            decimal expectedBonusPercentage = 5;
+            double expectedBonusPercentage = 5;
             //Act
             var returnedBonusPercentage = classUnderTest.GetBonusPercentage(employeeUnderTest);
             //Assert
@@ -49,7 +49,7 @@ namespace Tests.FinancialCalculator.UnitTests
             //Arrange
             var employeeUnderTest = new Employee { Id = 1, Name = "Joe Doe", Salary = 110000, HireDate = DateTime.Parse("01/01/2015"), PerformanceStarLevel = 3  };
             var classUnderTest = new FY18BonusCalculator();
-            decimal expectedBonusPercentage = 20;
+            double expectedBonusPercentage = 20;
             //Act
             var returnedBonusPercentage = classUnderTest.GetBonusPercentage(employeeUnderTest);
             //Assert
@@ -65,7 +65,7 @@ namespace Tests.FinancialCalculator.UnitTests
             //Arrange
             var employeeUnderTest = new Employee { Id = 1, Name = "Joe Doe", Salary = 110000, HireDate = DateTime.Parse("01/01/2015"), PerformanceStarLevel = 4 };
             var classUnderTest = new FY18BonusCalculator();
-            decimal expectedBonusPercentage = 30;
+            double expectedBonusPercentage = 30;
             //Act
             var returnedBonusPercentage = classUnderTest.GetBonusPercentage(employeeUnderTest);
             //Assert
@@ -81,7 +81,7 @@ namespace Tests.FinancialCalculator.UnitTests
             //Arrange
             var employeeUnderTest = new Employee { Id = 1, Name = "Joe Doe", Salary = 110000, HireDate = DateTime.Parse("01/01/2015"), PerformanceStarLevel = 5 };
             var classUnderTest = new FY18BonusCalculator();
-            decimal expectedBonusPercentage = 44;
+            double expectedBonusPercentage = 44;
             //Act
             var returnedBonusPercentage = classUnderTest.GetBonusPercentage(employeeUnderTest);
             //Assert

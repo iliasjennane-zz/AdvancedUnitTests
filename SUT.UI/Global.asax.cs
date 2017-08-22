@@ -12,6 +12,7 @@ namespace SUT.UI
     {
         protected void Application_Start()
         {
+            IoCConfig.ConfigureContainer();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
