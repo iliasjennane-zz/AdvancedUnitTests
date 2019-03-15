@@ -9,9 +9,9 @@ namespace SUT.FinancialCalculator
 {
     public class FY18BonusCalculator: IBonusCalculator
     {
-        public decimal GetBonusPercentage(Employee employee)
+        public double GetBonusPercentage(Employee employee)
         {
-            decimal bonusPercentage = 0;
+            double bonusPercentage = 0;
             if (employee.Salary > 100000)
             {
                 switch (employee.PerformanceStarLevel)
