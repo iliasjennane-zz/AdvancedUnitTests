@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="98c78e87-54b2-42da-86b3-5519ccc0679c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="230c1961-128d-420d-b51f-283bf163fdc0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -9,7 +9,9 @@
     <GenerateInternalTypes>false</GenerateInternalTypes>
     <GenerateMessageContracts>false</GenerateMessageContracts>
     <NamespaceMappings />
-    <CollectionMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
     <GenerateSerializableTypes>true</GenerateSerializableTypes>
     <Serializer>Auto</Serializer>
     <UseSerializerForFaults>true</UseSerializerForFaults>
@@ -22,10 +24,10 @@
     <MetadataSource Address="http://localhost:1102/BonusProjector.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="BonusProjector.disco" MetadataType="Disco" ID="11cbddc1-d716-4d51-8d69-63260961eb3e" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?disco" />
-    <MetadataFile FileName="BonusProjector.wsdl" MetadataType="Wsdl" ID="66bfbe56-cc3e-4bf4-b369-8df622b4b537" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?wsdl" />
-    <MetadataFile FileName="BonusProjector.xsd" MetadataType="Schema" ID="5e757925-24aa-41f6-a920-68c3ce8ab168" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?xsd=xsd0" />
-    <MetadataFile FileName="BonusProjector1.xsd" MetadataType="Schema" ID="2f1b2969-023b-4bf3-8081-c84220bdf8fe" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?xsd=xsd1" />
+    <MetadataFile FileName="BonusProjector.disco" MetadataType="Disco" ID="e1091cfa-d4fe-49e1-812a-b86ae5a9b5a7" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?disco" />
+    <MetadataFile FileName="BonusProjector.wsdl" MetadataType="Wsdl" ID="d4395991-e052-477e-bada-898f6cd53fab" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?wsdl" />
+    <MetadataFile FileName="BonusProjector.xsd" MetadataType="Schema" ID="50a46069-c085-44e8-89c7-a650707a30fd" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?xsd=xsd0" />
+    <MetadataFile FileName="BonusProjector1.xsd" MetadataType="Schema" ID="53c79ba9-238a-49f4-8bcf-d40399f704fd" SourceId="1" SourceUrl="http://localhost:1102/BonusProjector.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
