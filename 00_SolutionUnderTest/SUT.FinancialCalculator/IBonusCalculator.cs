@@ -4,6 +4,6 @@ namespace SUT.FinancialCalculator
 {
     public interface IBonusCalculator
     {
-        decimal GetBonusPercentage(Employee employee);
+        double GetBonusPercentage(Employee employee);
     }
 }
