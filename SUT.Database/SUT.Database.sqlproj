@@ -67,4 +67,7 @@
     <Build Include="dbo\Tables\Table.sql" />
     <PostDeploy Include="data\dbo.Table.seedingdata.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SUT.Database.publish.xml" />
+  </ItemGroup>
 </Project>
